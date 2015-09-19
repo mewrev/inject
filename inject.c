@@ -63,6 +63,10 @@ int main(int argc, char **argv) {
 			fprintf(stderr, "path length (%d) exceeds MAX_PATH (%d).\n", len, MAX_PATH);
 			return 1;
 		}
+		if (GetFileAttributes(lib_path) == INVALID_FILE_ATTRIBUTES) {
+			fprintf(stderr, "unable to locate library (%s).\n", lib_path);
+			return 1;
+		}
 
 		// Write library path to the page used for LoadLibrary arguments.
 		if (WriteProcessMemory(pi.hProcess, page, lib_path, len, NULL) == 0) {
