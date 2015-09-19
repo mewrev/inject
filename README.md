@@ -23,6 +23,10 @@ Order of execution:
 5. Execute the `DllMain` function of `d.dll`.
 6. Resume execution of `a.exe`.
 
+## Credits
+
+Inject was greatly inspired by Risc's use of DLL-injection in [diablo-improvements](https://github.com/r1sc/diablo-improvements).
+
 ## Public domain
 
 The source code and any original content of this repository is hereby released into the [public domain].
