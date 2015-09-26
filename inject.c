@@ -47,7 +47,7 @@ int main(int argc, char **argv) {
 	}
 
 	// Allocate a page in memory for the arguments of LoadLibrary.
-	page = VirtualAllocEx(pi.hProcess, NULL, MAX_PATH, MEM_COMMIT, PAGE_READWRITE);
+	page = VirtualAllocEx(pi.hProcess, NULL, MAX_PATH, MEM_COMMIT|MEM_RESERVE, PAGE_READWRITE);
 	if (page == NULL) {
 		fprintf(stderr, "VirtualAllocEx failed; error code = 0x%08X\n", GetLastError());
 		return 1;
@@ -87,6 +87,9 @@ int main(int argc, char **argv) {
 			fprintf(stderr, "WaitForSingleObject failed; error code = 0x%08X\n", GetLastError());
 			return 1;
 		}
+
+		// Cleanup.
+		CloseHandle(hThread);
 	}
 
 	// Resume the execution of the process, once all libraries have been injected
@@ -97,7 +100,7 @@ int main(int argc, char **argv) {
 	}
 
 	// Cleanup.
-	CloseHandle(hThread);
+	CloseHandle(pi.hProcess);
 	VirtualFreeEx(pi.hProcess, page, MAX_PATH, MEM_RELEASE);
 	return 0;
 }
