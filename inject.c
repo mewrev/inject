@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
 	// Print usage.
 	if (argc < 2) {
 		fprintf(stderr, "Usage: inject EXE [DLL...]\n");
-		fprintf(stderr, "Inject an ordered list of shared libraries into the address space of a binary executable.");
+		fprintf(stderr, "Inject an ordered list of shared libraries into the address space of a binary executable.\n");
 		return 1;
 	}
 
